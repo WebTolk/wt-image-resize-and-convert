@@ -1,6 +1,6 @@
 # Media - WT Image Resize and Convert
 
-[![Joomla](https://img.shields.io/badge/Joomla-4.4%2B-5091CD?logo=joomla)](https://www.joomla.org/)
+[![Joomla](https://img.shields.io/badge/Joomla-5.0%2B-5091CD?logo=joomla)](https://www.joomla.org/)
 [![PHP](https://img.shields.io/badge/PHP-8.1%2B-777BB4?logo=php&logoColor=white)](https://www.php.net/)
 [![Latest release](https://img.shields.io/github/v/release/WebTolk/wt-image-resize-and-convert)](https://github.com/WebTolk/wt-image-resize-and-convert/releases)
 [![License](https://img.shields.io/badge/license-GPL--3.0--or--later-4A8F00)](https://www.gnu.org/licenses/gpl-3.0.html)
@@ -17,7 +17,7 @@ Media Action plugin for Joomla Media Manager. It resizes, converts and optionall
 
 ## Requirements
 
-- Joomla 4.4 or later.
+- Joomla 5.0 or later.
 - PHP 8.1 or later.
 - PHP GD with support for the source and selected output format.
 

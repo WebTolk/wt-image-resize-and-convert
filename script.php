@@ -31,7 +31,7 @@ return new class () implements ServiceProviderInterface {
 			new class ($container->get(AdministratorApplication::class)) implements InstallerScriptInterface {
 				private readonly AdministratorApplication $app;
 				private readonly DatabaseDriver $db;
-				private string $minimumJoomla = '4.4.0';
+				private string $minimumJoomla = '5.0.0';
 				private string $minimumPhp = '8.1';
 
 				public function __construct(AdministratorApplication $app)
