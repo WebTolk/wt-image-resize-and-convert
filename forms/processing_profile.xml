@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form>
+    <fieldset>
+        <field name="id" type="text" label="PLG_MEDIA-ACTION_WTIMAGERESIZECONVERT_PROFILE_ID_LABEL" description="PLG_MEDIA-ACTION_WTIMAGERESIZECONVERT_PROFILE_ID_DESC" required="true" filter="cmd" />
+        <field name="title" type="text" label="PLG_MEDIA-ACTION_WTIMAGERESIZECONVERT_PROFILE_TITLE_LABEL" description="PLG_MEDIA-ACTION_WTIMAGERESIZECONVERT_PROFILE_TITLE_DESC" filter="string" />
+        <field name="resize_mode" type="list" label="PLG_MEDIA-ACTION_WTIMAGERESIZECONVERT_RESIZE_MODE_LABEL" default="none" validate="options">
+            <option value="none">PLG_MEDIA-ACTION_WTIMAGERESIZECONVERT_RESIZE_MODE_NONE</option>
+            <option value="fit">PLG_MEDIA-ACTION_WTIMAGERESIZECONVERT_RESIZE_MODE_FIT</option>
+            <option value="crop">PLG_MEDIA-ACTION_WTIMAGERESIZECONVERT_RESIZE_MODE_CROP</option>
+            <option value="width">PLG_MEDIA-ACTION_WTIMAGERESIZECONVERT_RESIZE_MODE_WIDTH</option>
+            <option value="height">PLG_MEDIA-ACTION_WTIMAGERESIZECONVERT_RESIZE_MODE_HEIGHT</option>
+        </field>
+        <field name="max_width" type="number" label="PLG_MEDIA-ACTION_WTIMAGERESIZECONVERT_MAX_WIDTH_LABEL" default="1920" min="0" step="1" filter="integer" showon="resize_mode!:none" />
+        <field name="max_height" type="number" label="PLG_MEDIA-ACTION_WTIMAGERESIZECONVERT_MAX_HEIGHT_LABEL" default="1080" min="0" step="1" filter="integer" showon="resize_mode!:none" />
+        <field name="image_fill_color" type="color" label="PLG_MEDIA-ACTION_WTIMAGERESIZECONVERT_IMAGE_FILL_COLOR_LABEL" default="#ffffff" filter="color" showon="resize_mode:fit" />
+        <field name="allow_upscale" type="radio" label="PLG_MEDIA-ACTION_WTIMAGERESIZECONVERT_ALLOW_UPSCALE_LABEL" layout="joomla.form.field.radio.switcher" default="0" filter="integer">
+            <option value="0">JNO</option><option value="1">JYES</option>
+        </field>
+        <field name="output_format" type="list" label="PLG_MEDIA-ACTION_WTIMAGERESIZECONVERT_OUTPUT_FORMAT_LABEL" default="keep" validate="options">
+            <option value="keep">PLG_MEDIA-ACTION_WTIMAGERESIZECONVERT_FORMAT_KEEP</option><option value="jpg">JPG</option><option value="png">PNG</option><option value="gif">GIF</option><option value="webp">WEBP</option><option value="avif">AVIF</option>
+        </field>
+        <field name="quality" type="number" label="PLG_MEDIA-ACTION_WTIMAGERESIZECONVERT_QUALITY_LABEL" default="82" min="1" max="100" step="1" filter="integer" />
+        <field name="png_compression" type="number" label="PLG_MEDIA-ACTION_WTIMAGERESIZECONVERT_PNG_COMPRESSION_LABEL" default="6" min="0" max="9" step="1" filter="integer" showon="output_format:png" />
+        <field name="watermark_enabled" type="radio" label="PLG_MEDIA-ACTION_WTIMAGERESIZECONVERT_WATERMARK_ENABLED_LABEL" layout="joomla.form.field.radio.switcher" default="0" filter="integer">
+            <option value="0">JNO</option><option value="1">JYES</option>
+        </field>
+        <field name="watermark_path" type="media" label="PLG_MEDIA-ACTION_WTIMAGERESIZECONVERT_WATERMARK_PATH_LABEL" types="images" filter="string" />
+        <field name="watermark_position" type="list" label="PLG_MEDIA-ACTION_WTIMAGERESIZECONVERT_WATERMARK_POSITION_LABEL" default="bottom-right" validate="options">
+            <option value="top-left">PLG_MEDIA-ACTION_WTIMAGERESIZECONVERT_POSITION_TOP_LEFT</option><option value="top-right">PLG_MEDIA-ACTION_WTIMAGERESIZECONVERT_POSITION_TOP_RIGHT</option><option value="center">PLG_MEDIA-ACTION_WTIMAGERESIZECONVERT_POSITION_CENTER</option><option value="bottom-left">PLG_MEDIA-ACTION_WTIMAGERESIZECONVERT_POSITION_BOTTOM_LEFT</option><option value="bottom-right">PLG_MEDIA-ACTION_WTIMAGERESIZECONVERT_POSITION_BOTTOM_RIGHT</option>
+        </field>
+        <field name="watermark_opacity" type="number" label="PLG_MEDIA-ACTION_WTIMAGERESIZECONVERT_WATERMARK_OPACITY_LABEL" default="80" min="1" max="100" step="1" filter="integer" />
+        <field name="watermark_scale" type="number" label="PLG_MEDIA-ACTION_WTIMAGERESIZECONVERT_WATERMARK_SCALE_LABEL" default="20" min="1" max="100" step="1" filter="integer" />
+        <field name="watermark_margin_x" type="number" label="PLG_MEDIA-ACTION_WTIMAGERESIZECONVERT_WATERMARK_MARGIN_X_LABEL" default="24" min="0" step="1" filter="integer" />
+        <field name="watermark_margin_y" type="number" label="PLG_MEDIA-ACTION_WTIMAGERESIZECONVERT_WATERMARK_MARGIN_Y_LABEL" default="24" min="0" step="1" filter="integer" />
+    </fieldset>
+</form>

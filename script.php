@@ -1,0 +1,145 @@
+<?php
+/**
+ * @package       WT Image Resize and Convert
+ * @version       1.0.0
+ * @author     WebTolk
+ * @copyright  Copyright (c) 2026 WebTolk. All rights reserved.
+ * @license       GNU/GPL3 http://www.gnu.org/licenses/gpl-3.0.html
+ * @link          https://web-tolk.ru
+ * @since         1.0.0
+ */
+
+declare(strict_types=1);
+
+defined('_JEXEC') or die;
+
+use Joomla\CMS\Application\AdministratorApplication;
+use Joomla\CMS\Factory;
+use Joomla\CMS\Installer\InstallerAdapter;
+use Joomla\CMS\Installer\InstallerScriptInterface;
+use Joomla\CMS\Language\Text;
+use Joomla\CMS\Version;
+use Joomla\Database\DatabaseDriver;
+use Joomla\DI\Container;
+use Joomla\DI\ServiceProviderInterface;
+
+return new class () implements ServiceProviderInterface {
+	public function register(Container $container): void
+	{
+		$container->set(
+			InstallerScriptInterface::class,
+			new class ($container->get(AdministratorApplication::class)) implements InstallerScriptInterface {
+				private readonly AdministratorApplication $app;
+				private readonly DatabaseDriver $db;
+				private string $minimumJoomla = '4.4.0';
+				private string $minimumPhp = '8.1';
+
+				public function __construct(AdministratorApplication $app)
+				{
+					$this->app = $app;
+					$this->db  = Factory::getContainer()->get('DatabaseDriver');
+				}
+
+				public function install(InstallerAdapter $adapter): bool
+				{
+					return true;
+				}
+
+				public function uninstall(InstallerAdapter $adapter): bool
+				{
+					return true;
+				}
+
+				public function update(InstallerAdapter $adapter): bool
+				{
+					return true;
+				}
+
+				public function preflight(string $type, InstallerAdapter $adapter): bool
+				{
+					return $this->checkCompatible();
+				}
+
+				public function postflight(string $type, InstallerAdapter $adapter): bool
+				{
+					if ($type !== 'uninstall')
+					{
+						$this->enablePlugin();
+					}
+
+					$smile = '';
+
+					if ($type !== 'uninstall')
+					{
+						$smiles = ['&#9786;', '&#128512;', '&#128521;', '&#128525;', '&#128526;', '&#128522;', '&#128591;'];
+						$smile  = $smiles[array_rand($smiles)];
+					}
+
+					$typeUpper = strtoupper($type);
+					$html      = '
+					<div class="row m-0">
+						<div class="col-12 col-md-8 p-0 pe-2">
+							<h2>' . $smile . ' ' . Text::_('PLG_MEDIA-ACTION_WTIMAGERESIZECONVERT_AFTER_' . $typeUpper) . ' <br/>' . Text::_('PLG_MEDIA-ACTION_WTIMAGERESIZECONVERT') . '</h2>
+							' . Text::_('PLG_MEDIA-ACTION_WTIMAGERESIZECONVERT_DESC') . '
+							' . Text::_('PLG_MEDIA-ACTION_WTIMAGERESIZECONVERT_WHATS_NEW') . '
+						</div>
+						<div class="col-12 col-md-4 p-0 d-flex flex-column justify-content-start">
+							<img width="180" src="https://web-tolk.ru/web_tolk_logo_wide.png" alt="WebTolk">
+							<p>Joomla Extensions</p>
+							<p class="btn-group">
+								<a class="btn btn-sm btn-outline-primary" href="https://web-tolk.ru" target="_blank" rel="noopener noreferrer">https://web-tolk.ru</a>
+								<a class="btn btn-sm btn-outline-primary" href="mailto:info@web-tolk.ru"><i class="icon-envelope"></i> info@web-tolk.ru</a>
+							</p>
+							<div class="btn-group-vertical mb-3 web-tolk-btn-links" role="group" aria-label="WebTolk community links">
+								<a class="btn btn-danger text-white w-100" href="https://t.me/joomlaru" target="_blank" rel="noopener noreferrer">' . Text::_('PLG_MEDIA-ACTION_WTIMAGERESIZECONVERT_JOOMLARU_TELEGRAM_CHAT') . '</a>
+								<a class="btn btn-primary text-white w-100" href="https://t.me/webtolkru" target="_blank" rel="noopener noreferrer">' . Text::_('PLG_MEDIA-ACTION_WTIMAGERESIZECONVERT_WEBTOLK_TELEGRAM_CHANNEL') . '</a>
+								<a class="btn btn-success text-white w-100" href="https://max.ru/channel_joomla" target="_blank" rel="noopener noreferrer">' . Text::_('PLG_MEDIA-ACTION_WTIMAGERESIZECONVERT_MAX_CHANNEL') . '</a>
+							</div>
+							' . Text::_('PLG_MEDIA-ACTION_WTIMAGERESIZECONVERT_MAYBE_INTERESTING') . '
+						</div>
+					</div>';
+
+					$this->app->enqueueMessage($html, 'info');
+
+					return true;
+				}
+
+				private function checkCompatible(): bool
+				{
+					if (!(new Version())->isCompatible($this->minimumJoomla))
+					{
+						$this->app->enqueueMessage(
+							Text::sprintf('PLG_MEDIA-ACTION_WTIMAGERESIZECONVERT_ERROR_COMPATIBLE_JOOMLA', $this->minimumJoomla),
+							'error'
+						);
+
+						return false;
+					}
+
+					if (!(version_compare(PHP_VERSION, $this->minimumPhp) >= 0))
+					{
+						$this->app->enqueueMessage(
+							Text::sprintf('PLG_MEDIA-ACTION_WTIMAGERESIZECONVERT_ERROR_COMPATIBLE_PHP', $this->minimumPhp),
+							'error'
+						);
+
+						return false;
+					}
+
+					return true;
+				}
+
+				private function enablePlugin(): void
+				{
+					$plugin          = new stdClass();
+					$plugin->type    = 'plugin';
+					$plugin->element = 'wtimageresizeconvert';
+					$plugin->folder  = 'media-action';
+					$plugin->enabled = 1;
+
+					$this->db->updateObject('#__extensions', $plugin, ['type', 'element', 'folder']);
+				}
+			}
+		);
+	}
+};

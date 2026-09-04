@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form>
+    <fieldset>
+        <field name="profile_id" type="folderprofile" addfieldprefix="Webtolk\Plugin\MediaAction\WtImageResizeConvert\Field" label="PLG_MEDIA-ACTION_WTIMAGERESIZECONVERT_FOLDER_RULE_PROFILE_LABEL" description="PLG_MEDIA-ACTION_WTIMAGERESIZECONVERT_FOLDER_RULE_PROFILE_DESC" required="true" validate="options" />
+        <field name="paths" type="textarea" label="PLG_MEDIA-ACTION_WTIMAGERESIZECONVERT_FOLDER_RULE_PATHS_LABEL" description="PLG_MEDIA-ACTION_WTIMAGERESIZECONVERT_FOLDER_RULE_PATHS_DESC" rows="5" filter="raw" required="true" />
+    </fieldset>
+</form>
